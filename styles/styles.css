@@ -16,6 +16,10 @@ a {
   text-decoration: none;
 }
 
+button {
+  border: 0;
+}
+
 .square {
   background: #fff;
   border: 1px solid #999;
@@ -62,19 +66,16 @@ a {
   padding: 15px;
   border-radius: 8px;
   background: #e6e6e6;
-  border: 2px solid #e6e6e6;
   transition-duration: 0.3s;
   cursor: pointer;
 }
 
 .buttonInfo:hover {
   background: #f0f0f0;
-  border: 2px solid #f0f0f0;
 }
 
 .buttonInfo:active {
   background: #d9d9d9;
-  border: 2px solid #d9d9d9;
 }
 
 .disabled {
@@ -83,15 +84,22 @@ a {
   padding: 15px;
   border-radius: 8px;
   background: #e6e6e6;
-  border: 2px solid #e6e6e6;
   transition-duration: 0.3s;
   cursor: pointer;
+}
+
+.noUse {
+  margin: 10px;
+  padding: 15px;
+  border-radius: 8px;
+  color: rgba(55, 55, 55, 0.48);
+  background: rgba(230, 230, 230, 0.48);
+  cursor: not-allowed;
 }
 
 @keyframes blinker {
   50% {
     opacity: 0.4;
     background: #d9d9d9;
-    border: 2px solid #d9d9d9;
   }
 }

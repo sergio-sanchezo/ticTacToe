@@ -84,13 +84,13 @@ export default function Home() {
               Reiniciar
             </button>
             <button
-              className={disabled ? "disabled" : "buttonInfo"}
+              className={disabled ? "disabled" : "noUse"}
               onClick={() => handleCPU("X")}
             >
               CPU juega con X
             </button>
             <button
-              className={disabled ? "disabled" : "buttonInfo"}
+              className={disabled ? "disabled" : "noUse"}
               onClick={() => handleCPU("O")}
             >
               CPU juega con O
