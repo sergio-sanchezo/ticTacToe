@@ -1,4 +1,5 @@
 import { calculateWinner } from "@/utils/utils";
+import { message } from "antd";
 import { useEffect, useState } from "react";
 
 //@ts-ignore
@@ -10,14 +11,17 @@ const Board = ({ xIsNext, squares, onPlay, isDisabled }) => {
       return;
     }
     const nextSquares = squares.slice();
-
-    if (xIsNext) {
-      nextSquares[i] = "X";
+    if (nextSquares[i] !== null) {
+      message.error({ content: "Movimiento ilegal", key: "loading" });
     } else {
-      nextSquares[i] = "O";
-    }
+      if (xIsNext) {
+        nextSquares[i] = "X";
+      } else {
+        nextSquares[i] = "O";
+      }
 
-    onPlay(nextSquares);
+      onPlay(nextSquares);
+    }
   };
 
   useEffect(() => {
