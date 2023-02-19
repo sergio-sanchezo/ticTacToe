@@ -64,15 +64,34 @@ a {
   background: #e6e6e6;
   border: 2px solid #e6e6e6;
   transition-duration: 0.3s;
+  cursor: pointer;
 }
 
 .buttonInfo:hover {
   background: #f0f0f0;
   border: 2px solid #f0f0f0;
-  cursor: pointer;
 }
 
 .buttonInfo:active {
   background: #d9d9d9;
   border: 2px solid #d9d9d9;
+}
+
+.disabled {
+  animation: blinker 1s linear infinite;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 8px;
+  background: #e6e6e6;
+  border: 2px solid #e6e6e6;
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0.4;
+    background: #d9d9d9;
+    border: 2px solid #d9d9d9;
+  }
 }
