@@ -91,7 +91,7 @@ class Agent {
     this.mark = "";
   }
 
-  findBestSquare(squares: any) {
+  findBestSquare(perception: any) {
     const opponent = this.mark === "X" ? "O" : "X";
 
     const minimax = (squares: any, isMax: Boolean) => {
@@ -144,7 +144,7 @@ class Agent {
     };
 
     // The best move for the 'player' given current board
-    return minimax(squares, true).square;
+    return minimax(perception, true).square;
   }
 }
 
