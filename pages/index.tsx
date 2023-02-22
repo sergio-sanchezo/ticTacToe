@@ -21,7 +21,7 @@ export default function Home() {
 
     const nextSquares = currentSquares.slice();
 
-    const bestSquare = agentCPU.findBestSquare(nextSquares);
+    const bestSquare = agentCPU.act(nextSquares) as number;
 
     if (bestSquare !== -1) {
       nextSquares[bestSquare] = xIsNext ? "X" : "O";
@@ -31,10 +31,10 @@ export default function Home() {
   };
 
   const handleCPU = (mark: string) => {
-    agentCPU.mark = mark;
+    agentCPU.act(mark);
     if (mark === "X") {
       const nextSquares = currentSquares.slice();
-      const bestSquare = agentCPU.findBestSquare(nextSquares);
+      const bestSquare = agentCPU.act(nextSquares) as number;
 
       if (bestSquare !== -1) {
         nextSquares[bestSquare] = xIsNext ? "X" : "O";
@@ -76,7 +76,7 @@ export default function Home() {
               className="buttonInfo"
               onClick={() => {
                 setCurrentSquares(Array(9).fill(null));
-                agentCPU.mark = "";
+                agentCPU.act("");
                 setDisabled(true);
                 setXIsNext(true);
               }}

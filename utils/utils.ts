@@ -91,60 +91,64 @@ class Agent {
     this.mark = "";
   }
 
-  findBestSquare(perception: any) {
-    const opponent = this.mark === "X" ? "O" : "X";
+  act(perception: any) {
+    if (typeof perception === "string") {
+      this.mark = perception;
+    } else {
+      const opponent = this.mark === "X" ? "O" : "X";
 
-    const minimax = (squares: any, isMax: Boolean) => {
-      const winner = calculateWinner(squares);
+      const minimax = (squares: any, isMax: Boolean) => {
+        const winner = calculateWinner(squares);
 
-      // If player wins, score is +1
-      if (winner === this.mark) return { square: -1, score: 1 };
+        // If player wins, score is +1
+        if (winner === this.mark) return { square: -1, score: 1 };
 
-      // If opponent wins, score is -1
-      if (winner === opponent) return { square: -1, score: -1 };
+        // If opponent wins, score is -1
+        if (winner === opponent) return { square: -1, score: -1 };
 
-      // If Tie, score is 0
-      if (isBoardFilled(squares)) return { square: -1, score: 0 };
+        // If Tie, score is 0
+        if (isBoardFilled(squares)) return { square: -1, score: 0 };
 
-      // Initialize 'best'. If isMax, we want to maximize score, and minimize otherwise.
-      const best = { square: -1, score: isMax ? -1000 : 1000 };
+        // Initialize 'best'. If isMax, we want to maximize score, and minimize otherwise.
+        const best = { square: -1, score: isMax ? -1000 : 1000 };
 
-      // Loop through every square on the board
-      for (let i = 0; i < squares.length; i++) {
-        // If square is already filled, it's not a valid move so skip it
-        if (squares[i]) {
-          continue;
+        // Loop through every square on the board
+        for (let i = 0; i < squares.length; i++) {
+          // If square is already filled, it's not a valid move so skip it
+          if (squares[i]) {
+            continue;
+          }
+
+          // If square is unfilled, then it's a valid move. Play the square.
+          squares[i] = isMax ? this.mark : opponent;
+          // Simulate the game until the end game and get the score,
+          // by recursively calling minimax.
+          const score = minimax(squares, !isMax).score;
+          // Undo the move
+          squares[i] = null;
+
+          if (isMax) {
+            // Maximizing player; track the largest score and move.
+            if (score > best.score) {
+              best.score = score;
+              best.square = i;
+            }
+          } else {
+            // Minimizing opponent; track the smallest score and move.
+            if (score < best.score) {
+              best.score = score;
+              best.square = i;
+            }
+          }
         }
 
-        // If square is unfilled, then it's a valid move. Play the square.
-        squares[i] = isMax ? this.mark : opponent;
-        // Simulate the game until the end game and get the score,
-        // by recursively calling minimax.
-        const score = minimax(squares, !isMax).score;
-        // Undo the move
-        squares[i] = null;
+        // The move that leads to the best score at end game.
+        return best;
+      };
 
-        if (isMax) {
-          // Maximizing player; track the largest score and move.
-          if (score > best.score) {
-            best.score = score;
-            best.square = i;
-          }
-        } else {
-          // Minimizing opponent; track the smallest score and move.
-          if (score < best.score) {
-            best.score = score;
-            best.square = i;
-          }
-        }
-      }
-
-      // The move that leads to the best score at end game.
-      return best;
-    };
-
-    // The best move for the 'player' given current board
-    return minimax(perception, true).square;
+      // The best move for the 'player' given current board
+      return minimax(perception, true).square;
+    }
   }
 }
 
